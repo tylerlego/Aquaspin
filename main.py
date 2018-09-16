@@ -1,15 +1,11 @@
-#!/usr/bin/python
-
-import sys
 import RPi.GPIO as GPIO
 import time
 import simpleaudio as sa
-import pdb
 
 def start_audio(wave_object):
     play_obj = wave_object.play()
     return play_obj
-    
+
 def stop_audio(play_object):
     play_object.stop()
 
@@ -27,7 +23,6 @@ def calculate_distance():
     pulse_duration = pulse_end_time - pulse_start_time
     distance = round(pulse_duration * 1750, 2) # calculate distance in cm
 
-#    print('DISTANCE: ', distance)
     return distance
 
 try:
@@ -60,11 +55,8 @@ try:
                 if (calculate_distance() < .8):
                     stop_audio(play_obj)
                     Condition = False
-
-    print('done!')
 except KeyboardInterrupt:
     print('Application stopped by keyboard input')
     
 finally:
-    print('finally...')
     GPIO.cleanup()
